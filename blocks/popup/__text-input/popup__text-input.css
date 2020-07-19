@@ -13,7 +13,7 @@
   outline-color: rgb(139, 176, 243);
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 600px), (max-height: 360px) {
   .popup__text-input {
     width: 85%;
     padding: 5px 3px;
