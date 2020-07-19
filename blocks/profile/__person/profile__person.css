@@ -8,7 +8,7 @@
   .profile__person {
     flex-direction: column;
     justify-content: center;
-    margin-bottom: 33px;
+    margin-bottom: 32px;
     text-align: center;
   }
 }

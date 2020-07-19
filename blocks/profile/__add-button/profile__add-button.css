@@ -6,8 +6,11 @@
   background-image: url(../../../images/add-button.svg);
   background-repeat: no-repeat;
   background-position: 50% 50%;
+  background-color: rgba(0, 0, 0, 0);
   box-sizing: border-box;
   cursor: pointer;
+  transition: opacity .4s;
+  outline: none;
 }
 
 .profile__add-button:hover {

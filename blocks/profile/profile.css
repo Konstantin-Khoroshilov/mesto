@@ -1,15 +1,10 @@
-@import url(./__avatar/profile__avatar.css);
-@import url(./__name/profile__name.css);
-@import url(./__edit-button/profile__edit-button.css);
-@import url(./__job/profile__job.css);
-@import url(./__add-button/profile__add-button.css);
-@import url(./__person/profile__person.css);
 .profile {
-  margin-bottom: 40px;
+  margin-bottom: 50px;
   display: grid;
   grid-template-columns: 488px 150px;
   align-items: center;
   justify-content: space-between;
+  box-sizing: border-box;
 }
 
 @media screen and (max-width: 750px) {
@@ -23,5 +18,6 @@
   .profile {
     grid-template-columns: 282px;
     justify-content: center;
+    margin-bottom: 35px;
   }
 }

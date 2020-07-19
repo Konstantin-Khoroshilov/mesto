@@ -9,55 +9,87 @@
 <body class="body">
   <div class="page">
     <header class="header">
-      <img class="header__logo" alt="Место Россия" src="./images/logo.png">
+      <img class="header__logo" alt="Место Россия" src="./images/logo.svg">
     </header>
     <main class="content">
       <section class="profile">
         <div class="profile__person">
           <img class="profile__avatar" src="./images/profile-image.png" alt="портрет улыбающегося пожилого мужчины в красной шапке на фоне моря">
-          <div>
+          <div class="profile__text-container">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <div class="profile__edit-button"></div>
+            <button type="button" class="profile__edit-button"></button>
             <p class="profile__job">Исследователь океана</p>
           </div>
         </div>
-        <div class="profile__add-button">+</div>
+        <button type="button" class="profile__add-button"></button>
       </section>
       <section class="elements">
-        <figure class="elements__card">
-          <img class="elements__image" src="./images/lena.jpg" alt="человек на островке посреди реки в сумерках">
-          <figcaption class="elements__caption"><span class="elements__heading">Река Лена</span><span class="elements__like-button"></span></figcaption>
-        </figure>
-        <figure class="elements__card">
-          <img class="elements__image" src="./images/dagestan.jpg" alt="вершина горы в облаках на фоне закатного неба">
-          <figcaption class="elements__caption"><span class="elements__heading">Республика Дагестан</span><span class="elements__like-button"></span></figcaption>
-        </figure>
-        <figure class="elements__card">
-          <img class="elements__image" src="./images/bryanskaya-oblast.jpg" alt="зелёные холмы с белым храмом вдали">
-          <figcaption class="elements__caption"><span class="elements__heading">Брянская область</span><span class="elements__like-button"></span></figcaption>
-        </figure>
-        <figure class="elements__card">
-          <img class="elements__image" src="./images/elbrus.png" alt="холмистая местность и гора вдали">
-          <figcaption class="elements__caption"><span class="elements__heading">Гора Эльбрус</span><span class="elements__like-button"></span></figcaption>
-        </figure>
-        <figure class="elements__card">
-          <img class="elements__image" src="./images/dombai.png" alt="остроконечная гора на фоне серых облаков">
-          <figcaption class="elements__caption"><span class="elements__heading">Домбай</span><span class="elements__like-button"></span></figcaption>
-        </figure>
-        <figure class="elements__card">
-          <img class="elements__image" src="./images/karachaevsk.png" alt="cтарый замок в горах">
-          <figcaption class="elements__caption"><span class="elements__heading">Карачаево-Черкессия</span><span class="elements__like-button"></span></figcaption>
-        </figure>
+        <ul class="elements__container">
+          <li>
+            <figure class="elements__card">
+              <img class="elements__image" src="./images/lena.jpg" alt="человек на островке посреди реки в сумерках">
+              <figcaption class="elements__caption">
+                <span class="elements__heading">Река Лена</span>
+                <button type="button" class="elements__like-button"></button>
+              </figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure class="elements__card">
+              <img class="elements__image" src="./images/dagestan.jpg" alt="вершина горы в облаках на фоне закатного неба">
+              <figcaption class="elements__caption">
+                <span class="elements__heading">Республика Дагестан</span>
+                <button type="button" class="elements__like-button"></button>
+              </figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure class="elements__card">
+              <img class="elements__image" src="./images/bryanskaya-oblast.jpg" alt="зелёные холмы с белым храмом вдали">
+              <figcaption class="elements__caption">
+                <span class="elements__heading">Брянская область</span>
+                <button type="button" class="elements__like-button"></button>
+              </figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure class="elements__card">
+              <img class="elements__image" src="./images/elbrus.png" alt="холмистая местность и гора вдали">
+              <figcaption class="elements__caption">
+                <span class="elements__heading">Гора Эльбрус</span>
+                <button type="button" class="elements__like-button"></button>
+              </figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure class="elements__card">
+              <img class="elements__image" src="./images/dombai.png" alt="остроконечная гора на фоне серых облаков">
+              <figcaption class="elements__caption">
+                <span class="elements__heading">Домбай</span>
+                <button type="button" class="elements__like-button"></button>
+              </figcaption>
+            </figure>
+          </li>
+          <li>
+            <figure class="elements__card">
+              <img class="elements__image" src="./images/karachaevsk.png" alt="cтарый замок в горах">
+              <figcaption class="elements__caption">
+                <span class="elements__heading">Карачаево-Черкессия</span>
+                <button type="button" class="elements__like-button"></button>
+              </figcaption>
+            </figure>
+          </li>
+        </ul>
       </section>
-      <aside class="popup">
-        <form class="popup__container">
-          <p class="popup__title">Редактировать профиль</p>
-          <input type="text" class="popup__name">
-          <input type="text" class="popup__job">
+      <div class="popup">
+        <form class="popup__container" name="profile">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <input type="text" name="profile-name" class="popup__text-input">
+          <input type="text" name="profile-job" class="popup__text-input popup__text-input_margin">
           <input type="submit" class="popup__save-button" value="Сохранить">
-          <span class="popup__close-button"></span>
+          <button type="button" class="popup__close-button"></button>
         </form>
-      </aside>
+      </div>
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
