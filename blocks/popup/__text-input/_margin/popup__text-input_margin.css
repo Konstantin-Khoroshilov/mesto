@@ -3,7 +3,7 @@
 }
 
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 600px), (max-height: 360px) {
   .popup__text-input_margin {
     margin-bottom: 20px;
   }

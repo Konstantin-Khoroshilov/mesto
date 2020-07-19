@@ -17,7 +17,7 @@
   opacity: .6;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 600px), (max-height: 360px) {
   .popup__close-button {
     right: 0;
     top: -41.65px;
