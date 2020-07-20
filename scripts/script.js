@@ -23,7 +23,7 @@ function formSubmitHandler (evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   profileName.textContent = popupName.value;//записать имя профиля из всплывающего окна в соответсвующее поле на странице
   profileJob.textContent = popupJob.value;//записать профессию профиля из всплывающего окна в соответсвующее поле на странице
-  popup.classList.remove('popup_opened'); //удалить класс popup_opened, т.е. спрятать всплывающее окно
+  displayPopup(); //удалить класс popup_opened, т.е. спрятать всплывающее окно
 }
 
 // Прикрепляем обработчик к форме:
