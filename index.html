@@ -24,62 +24,7 @@
         <button type="button" class="profile__add-button"></button>
       </section>
       <section class="elements">
-        <ul class="elements__container">
-          <li>
-            <figure class="elements__card">
-              <img class="elements__image" src="./images/lena.jpg" alt="человек на островке посреди реки в сумерках">
-              <figcaption class="elements__caption">
-                <span class="elements__heading">Река Лена</span>
-                <button type="button" class="elements__like-button"></button>
-              </figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure class="elements__card">
-              <img class="elements__image" src="./images/dagestan.jpg" alt="вершина горы в облаках на фоне закатного неба">
-              <figcaption class="elements__caption">
-                <span class="elements__heading">Республика Дагестан</span>
-                <button type="button" class="elements__like-button"></button>
-              </figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure class="elements__card">
-              <img class="elements__image" src="./images/bryanskaya-oblast.jpg" alt="зелёные холмы с белым храмом вдали">
-              <figcaption class="elements__caption">
-                <span class="elements__heading">Брянская область</span>
-                <button type="button" class="elements__like-button"></button>
-              </figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure class="elements__card">
-              <img class="elements__image" src="./images/elbrus.png" alt="холмистая местность и гора вдали">
-              <figcaption class="elements__caption">
-                <span class="elements__heading">Гора Эльбрус</span>
-                <button type="button" class="elements__like-button"></button>
-              </figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure class="elements__card">
-              <img class="elements__image" src="./images/dombai.png" alt="остроконечная гора на фоне серых облаков">
-              <figcaption class="elements__caption">
-                <span class="elements__heading">Домбай</span>
-                <button type="button" class="elements__like-button"></button>
-              </figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure class="elements__card">
-              <img class="elements__image" src="./images/karachaevsk.png" alt="cтарый замок в горах">
-              <figcaption class="elements__caption">
-                <span class="elements__heading">Карачаево-Черкессия</span>
-                <button type="button" class="elements__like-button"></button>
-              </figcaption>
-            </figure>
-          </li>
-        </ul>
+        <ul class="elements__container"></ul>
       </section>
       <div class="popup">
         <form class="popup__container" name="profile">
@@ -95,6 +40,17 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
   </div>
+  <template class = "template">
+    <li>
+      <figure class="elements__card">
+        <img class="elements__image">
+        <figcaption class="elements__caption">
+          <span class="elements__heading"></span>
+          <button type="button" class="elements__like-button"></button>
+        </figcaption>
+      </figure>
+    </li>
+  </template>
   <script src="./scripts/script.js"></script>
 </body>
 </html>
