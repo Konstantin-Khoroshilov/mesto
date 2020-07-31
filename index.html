@@ -9,55 +9,48 @@
 <body class="body">
   <div class="page">
     <header class="header">
-      <img class="header__logo" alt="Место Россия" src="./images/logo.png">
+      <img class="header__logo" alt="Место Россия" src="./images/logo.svg">
     </header>
     <main class="content">
       <section class="profile">
-        <img class="profile__avatar" src="./images/profile-image.png" alt="портрет улыбающегося пожилого мужчины на фоне моря">
-        <h1 class="profile__name">Жак-Ив Кусто</h1>
-        <div class="profile__edit-button"></div>
-        <p class="profile__job">Исследователь океана</p>
-        <div class="profile__add-button">+</div>
-      </section>
-
-      <section class="elements">
-        <figure class="elements__card">
-          <img class="elements__image" src="./images/karachaevsk.png" alt="cтарый замок в горах">
-          <figcaption class="elements__caption"><span>Карачаево-Черкессия</span><span class="elements__like-button"></span></figcaption>
-        </figure>
-        <figure class="elements__card">
-          <img class="elements__image" src="./images/elbrus.png" alt="холмистая местность и гора вдали">
-          <figcaption class="elements__caption"><span>Гора Эльбрус</span><span class="elements__like-button"></span></figcaption>
-        </figure>
-        <figure class="elements__card">
-          <img class="elements__image" src="./images/dombai.png" alt="остроконечная гора на фоне серых облаков">
-          <figcaption class="elements__caption"><span>Домбай</span><span class="elements__like-button"></span></figcaption>
-        </figure>
-        <figure class="elements__card">
-          <img class="elements__image" src="./images/lena.jpg" alt="человек на островке посреди реки в сумерках">
-          <figcaption class="elements__caption"><span>Река Лена</span><span class="elements__like-button"></span></figcaption>
-        </figure>
-        <figure class="elements__card">
-          <img class="elements__image" src="./images/dagestan.jpg" alt="вершина горы в облаках на фоне закатного неба">
-          <figcaption class="elements__caption"><span>Республика Дагестан</span><span class="elements__like-button"></span></figcaption>
-        </figure>
-        <figure class="elements__card">
-          <img class="elements__image" src="./images/bryanskaya-oblast.jpg" alt="зелёные холмы с белым храмом вдали">
-          <figcaption class="elements__caption"><span>Брянская область</span><span class="elements__like-button"></span></figcaption>
-        </figure>
-        <div class="popup">
-          <form class="popup__container">
-            <input type="text" class="popup__name">
-            <input type="text" class="popup__job">
-            <div class="popup__save-button">Сохранить</div>
-            <span class="popup__close-button">+</span>
-          </form>
+        <div class="profile__person">
+          <img class="profile__avatar" src="./images/profile-image.png" alt="портрет улыбающегося пожилого мужчины в красной шапке на фоне моря">
+          <div class="profile__text-container">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <button type="button" class="profile__edit-button"></button>
+            <p class="profile__job">Исследователь океана</p>
+          </div>
         </div>
+        <button type="button" class="profile__add-button"></button>
       </section>
+      <section class="elements">
+        <ul class="elements__container"></ul>
+      </section>
+      <div class="popup">
+        <form class="popup__container" name="profile">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <input type="text" name="profile-name" class="popup__text-input">
+          <input type="text" name="profile-job" class="popup__text-input popup__text-input_margin">
+          <input type="submit" class="popup__save-button" value="Сохранить">
+          <button type="button" class="popup__close-button"></button>
+        </form>
+      </div>
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
   </div>
+  <template class = "template">
+    <li>
+      <figure class="elements__card">
+        <img class="elements__image">
+        <figcaption class="elements__caption">
+          <span class="elements__heading"></span>
+          <button type="button" class="elements__like-button"></button>
+        </figcaption>
+      </figure>
+    </li>
+  </template>
+  <script src="./scripts/script.js"></script>
 </body>
 </html>
