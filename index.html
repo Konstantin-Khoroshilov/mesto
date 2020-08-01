@@ -27,7 +27,7 @@
         <ul class="elements__container"></ul>
       </section>
       <div class="popup popup_type_profile-editor">
-        <form class="popup__container" name="profile">
+        <form class="popup__form" name="profile">
           <h2 class="popup__title">Редактировать профиль</h2>
           <input type="text" name="profile-name" class="popup__text-input">
           <input type="text" name="profile-job" class="popup__text-input popup__text-input_margin">
@@ -36,7 +36,7 @@
         </form>
       </div>
       <div class="popup popup_type_cards-inputter">
-        <form class="popup__container" name="cards-inputter">
+        <form class="popup__form" name="cards-inputter">
           <h2 class="popup__title">Новое место</h2>
           <input type="text" name="add-card-name" placeholder="Название" class="popup__text-input">
           <input type="text" name="add-card-link" placeholder="Ссылка на картинку" class="popup__text-input popup__text-input_margin">
@@ -45,11 +45,13 @@
         </form>
       </div>
       <div class="popup popup_type_image-viewer">
-        <figure class="popup__figure">
-          <img class="popup__image" src="#">
-          <figcaption class="popup__caption"></figcaption>
+        <div class="popup__container">
+          <figure class="popup__figure">
+            <img class="popup__image" src="#" alt="">
+            <figcaption class="popup__caption"></figcaption>
+          </figure>
           <button type="button" class="popup__close-button popup__close-button_type_image-viewer"></button>
-        </figure>
+        </div>
       </div>
     </main>
     <footer class="footer">

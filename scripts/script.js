@@ -83,7 +83,7 @@ const addCard = (name, link) => {
   deleteButton.addEventListener('click', (evt) => {
     evt.target.parentElement.parentElement.remove();//по нажатию кнопки удаляет карточку
   });
-  //добавляет обработчик события при нажатии на картинку из карточки
+  //добавляет обработчик события картинке из карточки
   templateImage.addEventListener('click', (evt) => {
     document.querySelector('.popup__image').src = templateImage.src;//передает изображение из карточки во всплывающее окно
     document.querySelector('.popup__caption').textContent = temlateTitle.textContent;//передает подпись к изображению из карточки во всплывающее окно
