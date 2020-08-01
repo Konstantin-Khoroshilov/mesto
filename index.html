@@ -24,77 +24,52 @@
         <button type="button" class="profile__add-button"></button>
       </section>
       <section class="elements">
-        <ul class="elements__container">
-          <li>
-            <figure class="elements__card">
-              <img class="elements__image" src="./images/lena.jpg" alt="человек на островке посреди реки в сумерках">
-              <figcaption class="elements__caption">
-                <span class="elements__heading">Река Лена</span>
-                <button type="button" class="elements__like-button"></button>
-              </figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure class="elements__card">
-              <img class="elements__image" src="./images/dagestan.jpg" alt="вершина горы в облаках на фоне закатного неба">
-              <figcaption class="elements__caption">
-                <span class="elements__heading">Республика Дагестан</span>
-                <button type="button" class="elements__like-button"></button>
-              </figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure class="elements__card">
-              <img class="elements__image" src="./images/bryanskaya-oblast.jpg" alt="зелёные холмы с белым храмом вдали">
-              <figcaption class="elements__caption">
-                <span class="elements__heading">Брянская область</span>
-                <button type="button" class="elements__like-button"></button>
-              </figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure class="elements__card">
-              <img class="elements__image" src="./images/elbrus.png" alt="холмистая местность и гора вдали">
-              <figcaption class="elements__caption">
-                <span class="elements__heading">Гора Эльбрус</span>
-                <button type="button" class="elements__like-button"></button>
-              </figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure class="elements__card">
-              <img class="elements__image" src="./images/dombai.png" alt="остроконечная гора на фоне серых облаков">
-              <figcaption class="elements__caption">
-                <span class="elements__heading">Домбай</span>
-                <button type="button" class="elements__like-button"></button>
-              </figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure class="elements__card">
-              <img class="elements__image" src="./images/karachaevsk.png" alt="cтарый замок в горах">
-              <figcaption class="elements__caption">
-                <span class="elements__heading">Карачаево-Черкессия</span>
-                <button type="button" class="elements__like-button"></button>
-              </figcaption>
-            </figure>
-          </li>
-        </ul>
+        <ul class="elements__container"></ul>
       </section>
-      <div class="popup">
-        <form class="popup__container" name="profile">
+      <div class="popup popup_type_profile-editor">
+        <form class="popup__form" name="profile">
           <h2 class="popup__title">Редактировать профиль</h2>
           <input type="text" name="profile-name" class="popup__text-input">
           <input type="text" name="profile-job" class="popup__text-input popup__text-input_margin">
-          <input type="submit" class="popup__save-button" value="Сохранить">
-          <button type="button" class="popup__close-button"></button>
+          <input type="submit" class="popup__save-button popup__save-button_type_profile-editor" value="Сохранить">
+          <button type="button" class="popup__close-button popup__close-button_type_profile-editor"></button>
         </form>
+      </div>
+      <div class="popup popup_type_cards-inputter">
+        <form class="popup__form" name="cards-inputter">
+          <h2 class="popup__title">Новое место</h2>
+          <input type="text" name="add-card-name" placeholder="Название" class="popup__text-input">
+          <input type="text" name="add-card-link" placeholder="Ссылка на картинку" class="popup__text-input popup__text-input_margin">
+          <input type="submit" class="popup__save-button popup__save-button_type_cards-inputter" value="Создать">
+          <button type="button" class="popup__close-button popup__close-button_type_cards-inputter"></button>
+        </form>
+      </div>
+      <div class="popup popup_type_image-viewer">
+        <div class="popup__container">
+          <figure class="popup__figure">
+            <img class="popup__image" src="#" alt="">
+            <figcaption class="popup__caption"></figcaption>
+          </figure>
+          <button type="button" class="popup__close-button popup__close-button_type_image-viewer"></button>
+        </div>
       </div>
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
   </div>
+  <template class = "template">
+    <li>
+      <figure class="elements__card">
+        <img class="elements__image" src="#">
+        <figcaption class="elements__caption">
+          <span class="elements__heading"></span>
+          <button type="button" class="elements__like-button"></button>
+        </figcaption>
+        <button type="button" class="elements__delete-button"></button>
+      </figure>
+    </li>
+  </template>
   <script src="./scripts/script.js"></script>
 </body>
 </html>
