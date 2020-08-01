@@ -26,14 +26,30 @@
       <section class="elements">
         <ul class="elements__container"></ul>
       </section>
-      <div class="popup">
+      <div class="popup popup_type_profile-editor">
         <form class="popup__container" name="profile">
           <h2 class="popup__title">Редактировать профиль</h2>
           <input type="text" name="profile-name" class="popup__text-input">
           <input type="text" name="profile-job" class="popup__text-input popup__text-input_margin">
-          <input type="submit" class="popup__save-button" value="Сохранить">
-          <button type="button" class="popup__close-button"></button>
+          <input type="submit" class="popup__save-button popup__save-button_type_profile-editor" value="Сохранить">
+          <button type="button" class="popup__close-button popup__close-button_type_profile-editor"></button>
         </form>
+      </div>
+      <div class="popup popup_type_cards-inputter">
+        <form class="popup__container" name="cards-inputter">
+          <h2 class="popup__title">Новое место</h2>
+          <input type="text" name="add-card-name" placeholder="Название" class="popup__text-input">
+          <input type="text" name="add-card-link" placeholder="Ссылка на картинку" class="popup__text-input popup__text-input_margin">
+          <input type="submit" class="popup__save-button popup__save-button_type_cards-inputter" value="Создать">
+          <button type="button" class="popup__close-button popup__close-button_type_cards-inputter"></button>
+        </form>
+      </div>
+      <div class="popup popup_type_image-viewer">
+        <figure class="popup__figure">
+          <img class="popup__image">
+          <figcaption class="popup__caption"></figcaption>
+          <button type="button" class="popup__close-button popup__close-button_type_image-viewer"></button>
+        </figure>
       </div>
     </main>
     <footer class="footer">
@@ -48,6 +64,7 @@
           <span class="elements__heading"></span>
           <button type="button" class="elements__like-button"></button>
         </figcaption>
+        <button type="button" class="elements__delete-button"></button>
       </figure>
     </li>
   </template>
