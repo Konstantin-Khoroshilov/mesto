@@ -1,4 +1,4 @@
-.elements__delete-button {
+.cards__delete-button {
   background-image: url(../../../images/delete-button.svg);
   background-color: rgba(0, 0, 0, 0);
   outline: none;
@@ -12,6 +12,6 @@
   height: 19.3px;
 }
 
-.elements__delete-button:hover {
+.cards__delete-button:hover {
   opacity: .6;
 }
