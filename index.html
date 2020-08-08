@@ -27,20 +27,32 @@
         <ul class="cards__container"></ul>
       </section>
       <div class="popup popup_type_profile-editor">
-        <form class="popup__form" name="profile">
+        <form class="popup__form" name="profile" novalidate>
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input type="text" name="profile-name" class="popup__text-input">
-          <input type="text" name="profile-job" class="popup__text-input popup__text-input_margin">
+          <label class="popup__form-field">
+            <input type="text" name="profile-name" class="popup__text-input" placeholder="Имя" required minlength="2" maxlength="40">
+            <span id="profile-name-error-container" class="popup__error-message-container"></span>
+          </label>
+          <label class="popup__form-field popup__form-field_extra-height">
+          <input type="text" name="profile-job" class="popup__text-input" placeholder="О себе" required minlength="2" maxlength="200">
+          <span id="profile-job-error-container" class="popup__error-message-container"></span>
+          </label>
           <input type="submit" class="popup__save-button popup__save-button_type_profile-editor" value="Сохранить">
           <button type="button" class="popup__close-button popup__close-button_type_profile-editor"></button>
         </form>
       </div>
       <div class="popup popup_type_cards-inputter">
-        <form class="popup__form" name="cards-inputter">
+        <form class="popup__form" name="cards-inputter" novalidate>
           <h2 class="popup__title">Новое место</h2>
-          <input type="text" name="add-card-name" placeholder="Название" class="popup__text-input">
-          <input type="text" name="add-card-link" placeholder="Ссылка на картинку" class="popup__text-input popup__text-input_margin">
-          <input type="submit" class="popup__save-button popup__save-button_type_cards-inputter" value="Создать">
+          <label class="popup__form-field">
+          <input type="text" name="card-name" placeholder="Название" class="popup__text-input" required minlength="1" maxlength="30">
+          <span id="card-name-error-container" class="popup__error-message-container"></span>
+          </label>
+          <label class="popup__form-field popup__form-field_extra-height">
+          <input type="url" name="card-link" placeholder="Ссылка на картинку" class="popup__text-input"  required>
+          <span id="card-link-error-container" class="popup__error-message-container"></span>
+          </label>
+          <input type="submit" class="popup__save-button popup__save-button_type_cards-inputter popup__save-button_disabled" value="Создать" disabled>
           <button type="button" class="popup__close-button popup__close-button_type_cards-inputter"></button>
         </form>
       </div>
@@ -70,6 +82,7 @@
       </figure>
     </li>
   </template>
-  <script src="./scripts/script.js"></script>
+  <script src="./scripts/index.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 </html>
