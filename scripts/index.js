@@ -5,6 +5,7 @@ const cardsInputterCloseButton = document.querySelector('.popup__close-button_ty
 const imageViewerCloseButton = document.querySelector('.popup__close-button_type_image-viewer');//добавить в константу ссылку на  кнопку "Закрыть"
 const profileName = document.querySelector('.profile__name');////добавить в константу ссылку на поле "имя" на странице
 const profileJob = document.querySelector('.profile__job');//добавить в константу ссылку на поле "профессия" на странице
+const popups = document.querySelectorAll('.popup');//добавить в константу ссылку на элементы с классом popup
 const popupProfileEditor = document.querySelector('.popup_type_profile-editor');//добавить в константу ссылку на  всплывающее окно редактирования профиля
 const popupCardInputter = document.querySelector('.popup_type_cards-inputter');//добавить в константу ссылку на  всплывающее окно добавления карточки
 const popupImageViewer = document.querySelector('.popup_type_image-viewer');//добавить в константу ссылку на  всплывающее окно просмотра изображения
@@ -47,9 +48,31 @@ const cards = [
   }
 ];
 
+//создать отработчик события
+  const escapeHandler = (evt) => {
+  //если нажата клавиша Escape
+  if (evt.key === 'Escape') {
+    //закрыть попап
+    document.querySelector('.popup_opened').classList.remove('popup_opened');
+    //удалить отработчик события
+    document.removeEventListener('keydown', escapeHandler);
+  }
+};
+
 //функция отображает или скрывает попап добавляя или удаляя класс 'popup_opened'
 const displayPopup = (popup) => {
-  popup.classList.toggle('popup_opened');
+  //если попап не открыт
+  if (!popup.classList.contains('popup_opened')) {
+    //открыть попап
+    popup.classList.add('popup_opened');
+    //добавить отработчик события: нажатие клавиши
+    document.addEventListener('keydown', escapeHandler);
+  }
+  //если попап открыт
+  else if (popup.classList.contains('popup_opened')) {
+    //закрыть попап
+    popup.classList.remove('popup_opened');
+  }
 }
 
 //функция создаёт новую карточку из шаблона
@@ -100,20 +123,12 @@ const editProfileFormSubmitHandler = (evt) => {
 //отработчик формы добавления карточки
 const addCardFormSubmitHandler = (evt) => {
   evt.preventDefault(); // эта строчка отменяет стандартную отправку формы.
-  let newCardName = document.querySelector('[name = "add-card-name"]').value;//добавляет название карточки, полученное из формы, в переменную
-  let newCardLink = document.querySelector('[name = "add-card-link"]').value;//добавляет url картинки, полученный из формы, в переменную
-  //если не заполнить название карточки, в карточке будет написано "Пустота"
-  if(newCardName === '') {
-    newCardName = 'Пустота';
-  }
-  //если не указать адрес ссылки, переменной будет передана ссылка на "изображение пустоты"
-  if (newCardLink === '') {
-    newCardLink = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT77b6udxRDnUUT9msjmIO-wPbkMRt8cYNIIg&usqp=CAU';
-  }
+  const newCardName = document.querySelector('[name = "card-name"]').value;//добавляет название карточки, полученное из формы, в переменную
+  const newCardLink = document.querySelector('[name = "card-link"]').value;//добавляет url картинки, полученный из формы, в переменную
   const newCard = createCard(newCardName, newCardLink);//создать карточку, используя полученные из формы данные
   cardsContainer.prepend (newCard);// добавить новую карточку в контейнер
-  document.querySelector('[name = "add-card-name"]').value = '';//очистить поле "Название" во всплывающем окне
-  document.querySelector('[name = "add-card-link"]').value = '';//очистить поле "Ссылка на картинку" во всплывающем окне
+  document.querySelector('[name = "card-name"]').value = '';//очистить поле "Название" во всплывающем окне
+  document.querySelector('[name = "card-link"]').value = '';//очистить поле "Ссылка на картинку" во всплывающем окне
   displayPopup(popupCardInputter); //удалить класс popup_opened, т.е. спрятать всплывающее окно
 }
 
@@ -148,4 +163,14 @@ imageViewerCloseButton.addEventListener('click', () => {
 //по клику на кнопку "Закрыть" выполнить displayPopup(), т.е.  спрятать всплывающее окно добавления карточки без сохранения
 cardsInputterCloseButton.addEventListener('click', () => {
   displayPopup(popupCardInputter);
+});
+
+//каждому попапу добавить слушатель
+Array.from(popups).forEach((item) => {
+  //по клику на попап (на оверлей) закрыть его
+  item.addEventListener('click', (evt) => {
+    evt.target.classList.remove('popup_opened');
+    //удалить отработчик события нажатия esc
+    document.removeEventListener('keydown', escapeHandler);
+  });
 });

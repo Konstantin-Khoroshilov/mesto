@@ -1,0 +1,12 @@
+.popup__error-message-container {
+  font-size: 12px;
+  line-height: 1.25;
+  color: #FF0000;
+  width: 358px;
+}
+
+@media screen and (max-width: 600px), (max-height: 360px) {
+  .popup__error-message-container {
+    font-size: 10px;
+  }
+}
