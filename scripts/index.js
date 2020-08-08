@@ -14,6 +14,7 @@ const addCardForm = document.querySelector('[name = "cards-inputter"]');//доб
 const popupName = document.querySelector('[name = "profile-name"]');//добавить в константу ссылку на поле "имя" в всплывающем окне
 const popupJob = document.querySelector('[name = "profile-job"]');//добавить в константу ссылку на поле "профессия" в всплывающем окне
 const cardsContainer = document.querySelector('.cards__container');//добавить в константу ссылку на контейнер с карточками
+const addCardFormSaveButton = document.querySelector('.popup__save-button_type_cards-inputter');
 //массив с названиями мест и ссылками на изображения
 const cards = [
   {
@@ -95,8 +96,9 @@ const createCard = (name, link, alt = '') => {
   });
   //добавляет обработчик события картинке из карточки
   cardImage.addEventListener('click', () => {
-    document.querySelector('.popup__image').src = cardImage.src;//передает изображение из карточки во всплывающее окно
-    document.querySelector('.popup__image').alt = cardImage.alt;//передает alt изображения из карточки во всплывающее окно
+    const popupImage = document.querySelector('.popup__image');
+    popupImage.src = cardImage.src;//передает изображение из карточки во всплывающее окно
+    popupImage.alt = cardImage.alt;//передает alt изображения из карточки во всплывающее окно
     document.querySelector('.popup__caption').textContent = cardName.textContent;//передает подпись к изображению из карточки во всплывающее окно
     displayPopup(popupImageViewer);//отображает всплывающее окно просмотра изображений
   });
@@ -123,13 +125,38 @@ const editProfileFormSubmitHandler = (evt) => {
 //отработчик формы добавления карточки
 const addCardFormSubmitHandler = (evt) => {
   evt.preventDefault(); // эта строчка отменяет стандартную отправку формы.
-  const newCardName = document.querySelector('[name = "card-name"]').value;//добавляет название карточки, полученное из формы, в переменную
-  const newCardLink = document.querySelector('[name = "card-link"]').value;//добавляет url картинки, полученный из формы, в переменную
+  const cardNameInput = document.querySelector('[name = "card-name"]');
+  const cardLinkInput = document.querySelector('[name = "card-link"]');
+  const newCardName = cardNameInput.value;//добавляет название карточки, полученное из формы, в переменную
+  const newCardLink = cardLinkInput.value;//добавляет url картинки, полученный из формы, в переменную
   const newCard = createCard(newCardName, newCardLink);//создать карточку, используя полученные из формы данные
   cardsContainer.prepend (newCard);// добавить новую карточку в контейнер
-  document.querySelector('[name = "card-name"]').value = '';//очистить поле "Название" во всплывающем окне
-  document.querySelector('[name = "card-link"]').value = '';//очистить поле "Ссылка на картинку" во всплывающем окне
+  cardNameInput.value = '';//очистить поле "Название" во всплывающем окне
+  cardLinkInput.value = '';//очистить поле "Ссылка на картинку" во всплывающем окне
+  //отключить кнопку submit
+  addCardFormSaveButton.disabled = true;
+  //добавить кнопке класс отключения
+  addCardFormSaveButton.classList.add('popup__save-button_disabled');
   displayPopup(popupCardInputter); //удалить класс popup_opened, т.е. спрятать всплывающее окно
+}
+
+//очистить визуальные эффекты валидации
+const clearValidation = (errorClass, inputs, errorMessageContainers, enableButton, button, buttonDisableClass) => {
+  //удалить для всех инпутов стилизацию под ошибочный инпут
+  Array.from(inputs).forEach((input) => {
+    input.classList.remove(errorClass);
+  });
+  //очистить сообщения об ошибке
+  Array.from(errorMessageContainers).forEach((errorMessageContainer) => {
+    errorMessageContainer.textContent = '';
+  });
+  //если нужно активировать кнопку
+  if (enableButton) {
+    //удалить атрибут disabled
+    button.disabled = false;
+    //удалить стилизацию под выключенную кнопку
+    button.classList.remove(buttonDisableClass);
+  }
 }
 
 // Прикрепляем обработчики к формам:
@@ -153,6 +180,15 @@ editButton.addEventListener('click', () => {
 //по клику на кнопку "Закрыть" выполнить displayPopup(), т.е.  спрятать всплывающее окно редактирования профиля без сохранения
 profileEditorCloseButton.addEventListener('click', () => {
   displayPopup(popupProfileEditor);
+  //очистить визуальные эффекты валидации
+  clearValidation(
+    'popup__text-input_type_error',
+    editProfileForm.querySelectorAll('.popup__text-input'),
+    editProfileForm.querySelectorAll('.popup__error-message-container'),
+    true,
+    editProfileForm.querySelector('.popup__save-button_type_profile-editor'),
+    'popup__save-button_disabled'
+  );
 });
 
 //по клику на кнопку "Закрыть" выполнить displayPopup(), т.е.  спрятать всплывающее окно просмотра изображения
@@ -163,6 +199,12 @@ imageViewerCloseButton.addEventListener('click', () => {
 //по клику на кнопку "Закрыть" выполнить displayPopup(), т.е.  спрятать всплывающее окно добавления карточки без сохранения
 cardsInputterCloseButton.addEventListener('click', () => {
   displayPopup(popupCardInputter);
+  //очистить визуальные эффекты валидации
+  clearValidation(
+    'popup__text-input_type_error',
+    addCardForm.querySelectorAll('.popup__text-input'),
+    addCardForm.querySelectorAll('.popup__error-message-container')
+  );
 });
 
 //каждому попапу добавить слушатель
