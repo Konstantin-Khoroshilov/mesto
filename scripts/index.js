@@ -1,5 +1,6 @@
 import Card from './Card.js';
 import cards from './initialCards.js';
+import {displayPopup, popupImageViewer} from './utils.js'
 import FormValidator from './FormValidator.js';
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
@@ -11,15 +12,15 @@ const profileJob = document.querySelector('.profile__job');
 const popups = document.querySelectorAll('.popup');
 const popupProfileEditor = document.querySelector('.popup_type_profile-editor');
 const popupCardInputter = document.querySelector('.popup_type_cards-inputter');
-const popupImageViewer = document.querySelector('.popup_type_image-viewer');
 const editProfileForm = document.querySelector('[name = "profile"]');
 const addCardForm = document.querySelector('[name = "cards-inputter"]');
 const popupName = document.querySelector('[name = "profile-name"]');
 const popupJob = document.querySelector('[name = "profile-job"]');
 const cardsContainer = document.querySelector('.cards__container');
 const addCardFormSaveButton = document.querySelector('.popup__save-button_type_cards-inputter');
-const popupImage = document.querySelector('.popup__image');
 const cardTemplate = document.querySelector('.template');
+const cardNameInput = document.querySelector('[name = "card-name"]');
+const cardLinkInput = document.querySelector('[name = "card-link"]');
 
 //создать отработчик события
 const escapeHandler = (evt) => {
@@ -32,29 +33,13 @@ const escapeHandler = (evt) => {
   }
 };
 
-//функция отображает или скрывает попап добавляя или удаляя класс 'popup_opened'
-const displayPopup = (popup) => {
-  //если попап не открыт
-  if (!popup.classList.contains('popup_opened')) {
-    //открыть попап
-    popup.classList.add('popup_opened');
-    //добавить отработчик события: нажатие клавиши
-    document.addEventListener('keydown', escapeHandler);
-  }
-  //если попап открыт
-  else if (popup.classList.contains('popup_opened')) {
-    //закрыть попап
-    popup.classList.remove('popup_opened');
-  }
-}
-
 //функция добавляет начальные карточки. Текст заголовков и ссылки для изображений берёт из массива, передаваемого функции в качестве аргумента
 const addInitialCards = (cards) => {
-  for (let i = 0; i < cards.length; i++) {
+  cards.forEach((item) => {
     //создать карточку. Название, ссылку на изображение и alt взять из элемента массива. После создания карточки добавить её в контейнер
-    const card = new Card (cardTemplate, cards[i].name, cards[i].link, cards[i].alt);
+    const card = new Card(cardTemplate, item.name, item.link, item.alt);
     cardsContainer.prepend(card.getCard());
-  }
+  });
 }
 
 addInitialCards(cards);
@@ -70,40 +55,15 @@ const editProfileFormSubmitHandler = (evt) => {
 //отработчик формы добавления карточки
 const addCardFormSubmitHandler = (evt) => {
   evt.preventDefault(); // эта строчка отменяет стандартную отправку формы.
-  const cardNameInput = document.querySelector('[name = "card-name"]');
-  const cardLinkInput = document.querySelector('[name = "card-link"]');
   const newCardName = cardNameInput.value;//добавляет название карточки, полученное из формы, в переменную
   const newCardLink = cardLinkInput.value;//добавляет url картинки, полученный из формы, в переменную
   const newCard = new Card(cardTemplate, newCardName, newCardLink);//создать карточку, используя полученные из формы данные
   cardsContainer.prepend (newCard.getCard());// добавить новую карточку в контейнер
   cardNameInput.value = '';//очистить поле "Название" во всплывающем окне
   cardLinkInput.value = '';//очистить поле "Ссылка на картинку" во всплывающем окне
-  //отключить кнопку submit
-  addCardFormSaveButton.disabled = true;
-  //добавить кнопке класс отключения
-  addCardFormSaveButton.classList.add('popup__save-button_disabled');
+  addCardFormValidation.disableButton(addCardFormSaveButton, 'popup__save-button_disabled');//отключить кнопку submit
   displayPopup(popupCardInputter); //удалить класс popup_opened, т.е. спрятать всплывающее окно
 }
-
-//очистить визуальные эффекты валидации
-const clearValidation = (errorClass, inputs, errorMessageContainers, enableButton, button, buttonDisableClass) => {
-  //удалить для всех инпутов стилизацию под ошибочный инпут
-  Array.from(inputs).forEach((input) => {
-    input.classList.remove(errorClass);
-  });
-  //очистить сообщения об ошибке
-  Array.from(errorMessageContainers).forEach((errorMessageContainer) => {
-    errorMessageContainer.textContent = '';
-  });
-  //если нужно активировать кнопку
-  if (enableButton) {
-    //удалить атрибут disabled
-    button.disabled = false;
-    //удалить стилизацию под выключенную кнопку
-    button.classList.remove(buttonDisableClass);
-  }
-}
-
 // Прикрепляем обработчики к формам:
 //обработка формы редактирования профиля:
 editProfileForm.addEventListener('submit', editProfileFormSubmitHandler);
@@ -126,13 +86,9 @@ editButton.addEventListener('click', () => {
 profileEditorCloseButton.addEventListener('click', () => {
   displayPopup(popupProfileEditor);
   //очистить визуальные эффекты валидации
-  clearValidation(
-    'popup__text-input_type_error',
-    editProfileForm.querySelectorAll('.popup__text-input'),
+  editProfileFormValidation.clearValidation(
     editProfileForm.querySelectorAll('.popup__error-message-container'),
     true,
-    editProfileForm.querySelector('.popup__save-button_type_profile-editor'),
-    'popup__save-button_disabled'
   );
 });
 
@@ -145,9 +101,7 @@ imageViewerCloseButton.addEventListener('click', () => {
 cardsInputterCloseButton.addEventListener('click', () => {
   displayPopup(popupCardInputter);
   //очистить визуальные эффекты валидации
-  clearValidation(
-    'popup__text-input_type_error',
-    addCardForm.querySelectorAll('.popup__text-input'),
+  addCardFormValidation.clearValidation(
     addCardForm.querySelectorAll('.popup__error-message-container')
   );
 });
@@ -177,4 +131,4 @@ addCardFormValidation.enableValidation();
 const editProfileFormValidation = new FormValidator(itemsToValidate, editProfileForm);
 editProfileFormValidation.enableValidation();
 
-export {popupImage, displayPopup, popupImageViewer};
+export default escapeHandler;

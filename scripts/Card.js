@@ -1,5 +1,4 @@
-import {popupImage, displayPopup, popupImageViewer} from './index.js'
-
+import {popupCaption, popupImage, displayPopup, popupImageViewer} from './utils.js'
 //создать и экспортировать класс для добавления карточек на страницу
 export default class Card {
   //коструктор принимает на вход шаблон карточки, название карточки, ссылку на изображение и alt
@@ -19,22 +18,35 @@ export default class Card {
     this._cardImage.alt = this._alt;
     this._cardTitle.textContent = this._text;
   }
+
+  _toggleClass(element, className) {
+    element.classList.toggle(className);
+  }
+
+  _removeElement(element) {
+    element.remove();
+  }
+
+  _openImage() {
+    popupImage.src = this._cardImage.src;
+    popupImage.alt = this._cardImage.alt;
+    popupCaption.textContent = this._cardTitle.textContent;
+    displayPopup(popupImageViewer);
+  }
+
   //метод добавляет слушатели событий
   _setEventListeners() {
     //нажатие на кнопку лайка
     this._cardLikeButton.addEventListener('click', (evt) => {
-      evt.target.classList.toggle('cards__like-button_active');
+      this._toggleClass(evt.target, 'cards__like-button_active');
     });
     //нажатие на кнопку удаления карточки
     this._cardDeleteButton.addEventListener('click', (evt) => {
-      evt.target.parentElement.parentElement.remove();
+      this._removeElement(evt.target.parentElement.parentElement);
     });
     //нажатие на картинку
     this._cardImage.addEventListener('click', () => {
-      popupImage.src = this._cardImage.src;
-      popupImage.alt = this._cardImage.alt;
-      document.querySelector('.popup__caption').textContent = this._cardTitle.textContent;
-      displayPopup(popupImageViewer);
+      this._openImage();
     });
   }
   //метод возвращает готовую карточку

@@ -1,8 +1,9 @@
 //создать и экспортировать класс валидации форм
 export default class FormValidator {
-  constructor(formItems, formSelector) {
-    this._form = formSelector;
+  constructor(formItems, form) {
+    this._form = form;
     this._inputSelector = formItems.inputSelector;
+    this._inputs = form.querySelectorAll(this._inputSelector);
     this._submitButtonSelector = this._form.querySelector(formItems.submitButtonSelector);
     this._inactiveButtonClass = formItems.inactiveButtonClass;
     this._inputErrorClass = formItems.inputErrorClass;
@@ -56,22 +57,27 @@ export default class FormValidator {
       return !this._isValid (input);
     });
   }
-
+  disableButton(button, className) {
+    //отключить кнопку
+    button.disabled = true;
+    //добавить кнопке класс
+    button.classList.add(className);
+  }
+  enableButton(button, className) {
+    //включить кнопку
+    button.disabled = false;
+    //удалить класс отключения
+    button.classList.remove(className);
+  }
   //отключить или включить кнопку submit
   _toggleSubmitButton (hasInvalidInput, submitButton, className) {
     //Если хоть одно поле невалидно
     if (hasInvalidInput) {
-      //отключить кнопку submit
-      submitButton.disabled = true;
-      //добавить кнопке класс отключения
-      submitButton.classList.add(className);
+      this.disableButton(submitButton, className);
     }
     //если все поля валидны
     else {
-      //включить кнопку submit
-      submitButton.disabled = false;
-      //удалить класс отключения
-      submitButton.classList.remove(className);
+      this.enableButton(submitButton, className);
     }
   }
 
@@ -84,5 +90,20 @@ export default class FormValidator {
         this._toggleSubmitButton(this._hasInvalidInput(evt, this._inputSelector), this._submitButtonSelector, this._inactiveButtonClass);
       }
     });
+  }
+  //очистить визуальные эффекты валидации
+  clearValidation(errorMessageContainers, enableButton) {
+    //удалить для всех инпутов стилизацию под ошибочный инпут
+    Array.from(this._inputs).forEach((input) => {
+      input.classList.remove(this._inputErrorClass);
+    });
+    //очистить сообщения об ошибке
+    Array.from(errorMessageContainers).forEach((errorMessageContainer) => {
+      errorMessageContainer.textContent = '';
+    });
+    //если нужно активировать кнопку
+    if (enableButton) {
+      this.enableButton(this._submitButtonSelector, this._inactiveButtonClass);
+    }
   }
 }
