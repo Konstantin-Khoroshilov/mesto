@@ -22,17 +22,6 @@ const cardTemplate = document.querySelector('.template');
 const cardNameInput = document.querySelector('[name = "card-name"]');
 const cardLinkInput = document.querySelector('[name = "card-link"]');
 
-//создать отработчик события
-const escapeHandler = (evt) => {
-  //если нажата клавиша Escape
-  if (evt.key === 'Escape') {
-    //закрыть попап
-    document.querySelector('.popup_opened').classList.remove('popup_opened');
-    //удалить отработчик события
-    document.removeEventListener('keydown', escapeHandler);
-  }
-};
-
 //функция добавляет начальные карточки. Текст заголовков и ссылки для изображений берёт из массива, передаваемого функции в качестве аргумента
 const addInitialCards = (cards) => {
   cards.forEach((item) => {
@@ -130,5 +119,3 @@ addCardFormValidation.enableValidation();
 //добавть валидацию формы редактирования профиля
 const editProfileFormValidation = new FormValidator(itemsToValidate, editProfileForm);
 editProfileFormValidation.enableValidation();
-
-export default escapeHandler;
