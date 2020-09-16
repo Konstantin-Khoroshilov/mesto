@@ -1,3 +1,4 @@
+import '../pages/index.css';
 import Card from './Card.js';
 import cards from './initialCards.js';
 import {displayPopup, popupImageViewer} from './utils.js'

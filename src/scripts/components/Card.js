@@ -2,6 +2,8 @@ import {popupCaption, popupImage, displayPopup, popupImageViewer} from './utils.
 //создать и экспортировать класс для добавления карточек на страницу
 export default class Card {
   //коструктор принимает на вход шаблон карточки, название карточки, ссылку на изображение и alt
+  
+  /*Сделайте так, чтобы Card принимал в конструктор функцию handleCardClick. Эта функция должна открывать попап с картинкой при клике на карточку.*/
   constructor (template, text, link, alt = '') {
     this._text = text;
     this._link = link;
