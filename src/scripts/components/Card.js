@@ -1,6 +1,6 @@
 export default class Card {
-  constructor (template, text, link, alt = '', handleCardClick) {
-    this._text = text;
+  constructor (template, {name, link, alt = ''}, handleCardClick) {
+    this._text = name;
     this._link = link;
     this._alt = alt;
     this._card = template.content.cloneNode(true);

@@ -36,16 +36,22 @@ profileEditorPopup.setEventListeners(()=>{
 });
 //по клику на кнопку "Редактировать"
 editButton.addEventListener('click', () => {
-  popupName.value = user.getUserInfo().userName; //записать имя профиля со страницы в соответсвующее поле всплывающего окна
-  popupJob.value = user.getUserInfo().userJob; //записать профессию профиля со страницы в соответсвующее поле всплывающего окна
+  const {userName, userJob} = user.getUserInfo();
+  popupName.value = userName; //записать имя профиля со страницы в соответсвующее поле всплывающего окна
+  popupJob.value = userJob; //записать профессию профиля со страницы в соответсвующее поле всплывающего окна
   profileEditorPopup.open(); // отобразить всплывающее окно редактирования профиля
 });
 
 const popupCardInputter = new PopupWithForm ('popup_type_cards-inputter', (evt, formValues) => {
   evt.preventDefault(); // эта строчка отменяет стандартную отправку формы.
-  const newCard = new Card(cardTemplate, formValues['card-name'], formValues['card-link'],'', (cardImage, cardTitle)=>{
-    popupWithImage.open(cardImage, cardTitle);
-  });//создать карточку, используя полученные из формы данные
+  //создать карточку, используя полученные из формы данные
+  const newCard = new Card(
+    cardTemplate,
+    {name: formValues['card-name'], link: formValues['card-link'],alt: ''},
+    (cardImage, cardTitle)=>{
+      popupWithImage.open(cardImage, cardTitle);
+    }
+  );
   cardsContainer.prepend (newCard.getCard());// добавить новую карточку в контейнер
   cardNameInput.value = '';//очистить поле "Название" во всплывающем окне
   cardLinkInput.value = '';//очистить поле "Ссылка на картинку" во всплывающем окне
@@ -84,7 +90,7 @@ editProfileFormValidation.enableValidation();
 const cardsList = new Section({
       data: cards,
       renderer: (cardItem) => {
-        const card = new Card(cardTemplate, cardItem.name, cardItem.link, cardItem.alt, (cardImage, cardTitle)=>{
+        const card = new Card(cardTemplate, cardItem, (cardImage, cardTitle)=>{
           popupWithImage.open(cardImage, cardTitle);
         })
         const cardElement = card.getCard();

@@ -1,7 +1,7 @@
 import Popup from "./Popup";
-export default class PopupWithImage extends Popup {
-  constructor(_popup, submitHandler) {
-    super(_popup);
+export default class PopupWithForm extends Popup {
+  constructor(popup, submitHandler) {
+    super(popup);
     this._submitHandler = submitHandler;
   }
   //собирает данные всех полей формы
@@ -25,11 +25,13 @@ export default class PopupWithImage extends Popup {
   setEventListeners(clearValidationHandler) {
     this._clearValidationHandler = clearValidationHandler;
     this._popup.querySelector('.popup__close-button').addEventListener('click',()=>{
-      this.close.bind(this)(this._clearValidationHandler);
+      this.close.bind(this)();
+      this._clearValidationHandler();
     });
     this._popup.addEventListener('click', (evt)=>{
       if (evt.target.classList.contains('popup')) {
-        this.close.bind(this)(this._clearValidationHandler);
+        this.close.bind(this)();
+        this._clearValidationHandler();
       }
     });
     this._popup.addEventListener('submit', (evt) => {
@@ -38,15 +40,15 @@ export default class PopupWithImage extends Popup {
   }
   //должен закрывать и сбрасывать форму
   close() {
-    this._popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', this._eventEsc);
+    super.close();
     this._clearValidationHandler();
   }
   _handleEscClose(evt) {
     //если нажата клавиша Escape
     if (evt.key === 'Escape') {
       //закрыть попап и очистить валидацию
-      this.close(this._clearValidationHandler);
+      this.close();
+      this._clearValidationHandler();
     }
   }
 }
