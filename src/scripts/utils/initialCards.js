@@ -1,9 +1,9 @@
-import kazan from '../images/kazan.jpg';
-import dagestan from '../images/dagestan.jpg';
-import murmanskaya from '../images/murmanskaya-oblast.jpg';
-import elbrus from '../images/elbrus.jpg';
-import dombai from  '../images/dombai.jpg';
-import karachaevsk from  '../images/karachaevsk.jpg';
+import kazan from '../../images/kazan.jpg';
+import dagestan from '../../images/dagestan.jpg';
+import murmanskaya from '../../images/murmanskaya-oblast.jpg';
+import elbrus from '../../images/elbrus.jpg';
+import dombai from  '../../images/dombai.jpg';
+import karachaevsk from  '../../images/karachaevsk.jpg';
 
 //массив с названиями мест и ссылками на изображения
 const cards = [

@@ -1,11 +1,11 @@
-import '../../pages/index.css';
-import Section from '../components/Section.js';
-import Card from '../components/Card.js';
-import cards from '../utils/initialCards.js';
-import FormValidator from '../components/FormValidator.js';
-import PopupWithImage from "../components/PopupWithImage";
-import PopupWithForm from "../components/PopupWithForm";
-import UserInfo from "../components/UserInfo";
+import './index.css';
+import Section from '../scripts/components/Section.js';
+import Card from '../scripts/components/Card.js';
+import cards from '../scripts/utils/initialCards.js';
+import FormValidator from '../scripts/components/FormValidator.js';
+import PopupWithImage from "../scripts/components/PopupWithImage";
+import PopupWithForm from "../scripts/components/PopupWithForm";
+import UserInfo from "../scripts/components/UserInfo";
 
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
