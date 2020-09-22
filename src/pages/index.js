@@ -81,7 +81,7 @@ const handleDeleteClick = (item, itemID) => {
 }
 
 //здесь прописана логика лайка
-const likeHandler = (needSetLike, cardId, likesContainer) => {
+const likeHandler = (needSetLike, cardId, likesContainer, likeButton) => {
   //если нужно поставить лайк
   if(needSetLike) {
     //пока ждем ответ от сервера показываем ...
@@ -89,11 +89,13 @@ const likeHandler = (needSetLike, cardId, likesContainer) => {
     //отправить запрос на сервер на добавление лайка
     api.setLike(cardId)
       //если пришел положительный ответ от сервера, взять из ответа кол-во лайков и добавить в карточку на странице
-      .then((res)=>{likesContainer.textContent = res.likes.length})
+      .then((res)=>{
+        likesContainer.textContent = res.likes.length;
+        likeButton.classList.add('cards__like-button_active');
+      })
       //если произошла ошибка, вывести ее в консоль
       .catch((err)=>{
         console.log(err);
-        likesContainer.textContent = 'упс';
       })
   }
   //если нужно убрать лайк
@@ -103,14 +105,57 @@ const likeHandler = (needSetLike, cardId, likesContainer) => {
     //отправить запрос на сервер на удаление лайка
     api.removeLike(cardId)
       //если пришел положительный ответ от сервера, взять из ответа кол-во лайков и добавить в карточку на странице
-      .then((res)=>{likesContainer.textContent = res.likes.length})
+      .then((res)=>{
+        likesContainer.textContent = res.likes.length;
+        likeButton.classList.remove('cards__like-button_active');
+      })
       //если произошла ошибка, вывести ее в консоль
       .catch((err)=>{
         console.log(err);
-        likesContainer.textContent = 'упс';
       })
   }
 }
+
+//создание и заполнение карточки
+const addNewCard = (cardData, needDelete, isLiked) => {
+  //данные для загрузки карточек с сервера
+  const initialCardsData = {
+    template: cardTemplate,
+    deleteButtonTemplate: deleteButtonTemplate,
+    cardData: cardData,//это объект, здесь лежат: название карточки, ссылка на картинку, кол-во лайков
+    handleCardClick: (cardImage, cardTitle) => {
+      popupWithImage.open(cardImage, cardTitle);
+    },
+    handleDeleteClick: false,//ф-я удаления карточки
+    needDelete: false,//нужна ли кнопка удаления карточки
+    cardId: cardData._id,
+    likeHandler: (needSetLike, cardId, likesContainer, likeButton) => {
+      likeHandler(needSetLike, cardId, likesContainer, likeButton);
+    },
+    //лайкнул ли пользователь текущую карточку ранее?
+    isLiked: isLiked
+  }
+  //если id владельца карточки совпадает с id пользователя, добавить кнопку удаления и добавить обработчик этой кнопки
+  //чтобы пользователь мог удалить свою карточку
+  if(cardData.owner._id == userId){
+    initialCardsData.needDelete = true;
+    initialCardsData.handleDeleteClick = (item) => {handleDeleteClick(item, cardData._id)}
+  }
+  //если пользователь ранее ставил лайк карточке, она сформируется "лайкнутой"
+  if (cardData.likes != []) {
+    //если среди id пользователей, лайкнувших карточку, найдётся id текущего пользователя
+    if(cardData.likes.some((like) => {
+      return like._id == userId;
+    })){
+      //при создании карточки параметр isLiked в конструктор передается со значением true
+      initialCardsData.isLiked = true;
+    }
+  }
+  const card = new Card(initialCardsData);
+  const cardElement = card.getCard();
+  return cardElement;
+}
+
 
 //создать экземпляр класса UserInfo и передать в него селекторы полей страницы, содержащих инф. о пользователе
 const user = new UserInfo({userNameSelector: 'profile__name', userJobSelector: 'profile__job'});
@@ -221,33 +266,7 @@ const popupCardInputter = new PopupWithForm ('popup_type_cards-inputter', (evt, 
   api.addNewCard(formValues['card-name'], formValues['card-link'])
     .then((data) => {
       //когда получен положительный ответ от сервера и получен объект с данными карточки (data),
-      //создать константу с данными для последующей передачи конструктору класса создания карточки
-      const newCardData = {
-        template: cardTemplate,//шаблон карточки
-        deleteButtonTemplate: deleteButtonTemplate,//html код кнопки "удалить"
-        //полученные от сервера данные (name, link, likes) записываются в cardData
-        cardData: {name: data.name, link: data.link, likes: data.likes, alt: ''},
-        //обработчик нажатия на картинку из карточки
-        handleCardClick: (cardImage, cardTitle) => {
-          //открывает попап просмотра карточки и передает туда картинку и подпись к ней
-          popupWithImage.open(cardImage, cardTitle);
-        },
-        //обработчик нажатия на кнопку delete
-        handleDeleteClick: (item) => {
-          handleDeleteClick (item, data._id);
-        },
-        //кнопка удаления карточки нужна
-        needDelete: true,
-        cardId: data._id,
-        likeHandler: (needSetLike, cardId, likesContainer) => {
-          likeHandler(needSetLike, cardId, likesContainer);
-        },
-        isLiked: false
-      }
-
-      //создать карточку, используя полученные из формы данные, записанные в newCardData
-      const newCard = new Card(newCardData);
-      cardsContainer.prepend (newCard.getCard());// добавить новую карточку в контейнер
+      cardsContainer.prepend (addNewCard(data, true, false));// добавить новую карточку в контейнер
       cardNameInput.value = '';//очистить поле "Название" во всплывающем окне
       cardLinkInput.value = '';//очистить поле "Ссылка на картинку" во всплывающем окне
       addCardFormValidation.disableButton(addCardFormSaveButton, 'popup__save-button_disabled');//отключить кнопку submit
@@ -291,43 +310,8 @@ api.getInitialCards()
     .then((data) => {
       const cardsList = new Section({
         data: data,
-        renderer: (cardItem) => {
-          //данные для загрузки карточек с сервера
-          const initialCardsData = {
-            template: cardTemplate,
-            deleteButtonTemplate: deleteButtonTemplate,
-            cardData: cardItem,//это объект, здесь лежат: название карточки, ссылка на картинку, кол-во лайков
-            handleCardClick: (cardImage, cardTitle) => {
-              popupWithImage.open(cardImage, cardTitle);
-            },
-            handleDeleteClick: false,//по умолчанию не нужно обрабатывать нажатие кнопки удаления карточки
-            needDelete: false,//по умолчанию кнопка удаления не нужна
-            cardId: cardItem._id,
-            likeHandler: (needSetLike, cardId, likesContainer) => {
-              likeHandler(needSetLike, cardId, likesContainer);
-            },
-            //лайкнул ли пользователь текущую карточку ранее?
-            isLiked: false//по умолчанию кнопка не лайкнута
-          }
-          //если id владельца карточки совпадает с id пользователя, добавить кнопку удаления и добавить обработчик этой кнопки
-          //чтобы пользователь мог удалить свою карточку
-          if(cardItem.owner._id == userId){
-            initialCardsData.needDelete = true;
-            initialCardsData.handleDeleteClick = (item) => {handleDeleteClick(item, cardItem._id)}
-          }
-          //если пользователь ранее ставил лайк карточке, она сформируется "лайкнутой"
-          if (cardItem.likes != []) {
-            //если среди id пользователей, лайкнувших карточку, найдётся id текущего пользователя
-            if(cardItem.likes.some((like) => {
-              return like._id == userId;
-            })){
-              //при создании карточки параметр isLiked в конструктор передается со значением true
-              initialCardsData.isLiked = true;
-            }
-          }
-          const card = new Card(initialCardsData);
-          const cardElement = card.getCard();
-          cardsList.addItem(cardElement);
+        renderer: (cardData) => {
+          cardsList.addItem(addNewCard(cardData,  false, false));
         }
       },
       'cards__container'
