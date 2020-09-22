@@ -26,12 +26,16 @@ export default class PopupWithForm extends Popup {
     this._clearValidationHandler = clearValidationHandler;
     this._popup.querySelector('.popup__close-button').addEventListener('click',()=>{
       this.close.bind(this)();
-      this._clearValidationHandler();
+      if(this._clearValidationHandler) {
+        this._clearValidationHandler();
+      }
     });
     this._popup.addEventListener('click', (evt)=>{
       if (evt.target.classList.contains('popup')) {
         this.close.bind(this)();
-        this._clearValidationHandler();
+        if(this._clearValidationHandler) {
+          this._clearValidationHandler();
+        }
       }
     });
     this._popup.addEventListener('submit', (evt) => {
@@ -41,14 +45,18 @@ export default class PopupWithForm extends Popup {
   //должен закрывать и сбрасывать форму
   close() {
     super.close();
-    this._clearValidationHandler();
+    if(this._clearValidationHandler) {
+      this._clearValidationHandler();
+    }
   }
   _handleEscClose(evt) {
     //если нажата клавиша Escape
     if (evt.key === 'Escape') {
       //закрыть попап и очистить валидацию
       this.close();
-      this._clearValidationHandler();
+      if(this._clearValidationHandler) {
+        this._clearValidationHandler();
+      }
     }
   }
 }

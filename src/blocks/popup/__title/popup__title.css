@@ -9,6 +9,10 @@
   width: 358px;
 }
 
+.popup_type_delete-confirmation .popup__title {
+  margin-bottom: 32px;
+}
+
 @media screen and (max-width: 600px), (max-height: 360px) {
   .popup__title {
     font-size: 18px;

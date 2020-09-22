@@ -14,6 +14,8 @@ export default class UserInfo {
   //принимает новые данные пользователя и добавляет их на страницу.
   setUserInfo(userName, userJob) {
     this._userNameOnPage.textContent = userName;
+    this._userNameOnPage.setAttribute('title', userName);
     this._userJobOnPage.textContent = userJob;
+    this._userJobOnPage.setAttribute('title', userJob);
   }
 }
