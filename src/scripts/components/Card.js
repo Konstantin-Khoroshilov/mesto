@@ -1,5 +1,7 @@
+import defaultCardImage from '../../images/default-image.svg';
+
 export default class Card {
-  constructor ({template, deleteButtonTemplate, cardData, handleCardClick, handleDeleteClick, needDelete, cardId, likeHandler, isLiked}) {
+  constructor({ template, deleteButtonTemplate, cardData, handleCardClick, handleDeleteClick, needDelete, cardId, likeHandler, isLiked }) {
     this._text = cardData.name;
     this._link = cardData.link;
     this._alt = cardData.alt;
@@ -29,7 +31,7 @@ export default class Card {
     if (this._needDelete) {
       this._figure.append(this._deleteButtonTemplate);
     }
-    if(this._isLiked) {
+    if (this._isLiked) {
       this._cardLikeButton.classList.add('cards__like-button_active');
     }
   }
@@ -43,14 +45,14 @@ export default class Card {
   }
 
   _setEventListeners() {
-    if(this._needDelete) {
+    if (this._needDelete) {
       this._deleteButton.addEventListener('click', (evt) => {
         this._handleDeleteClick(evt.target.parentElement.parentElement);
       });
     }
 
     this._cardLikeButton.addEventListener('click', () => {
-      if(!this._isLiked) {
+      if (!this._isLiked) {
         this._likeHandler(true, this._cardId, this._likesContainer, this._cardLikeButton);
         this._isLiked = true;
       }
@@ -63,6 +65,10 @@ export default class Card {
     this._cardImage.addEventListener('click', () => {
       this._openImage();
     });
+
+    this._cardImage.onerror = () => {
+      this._cardImage.src = defaultCardImage;
+    };
   }
 
   getCard() {

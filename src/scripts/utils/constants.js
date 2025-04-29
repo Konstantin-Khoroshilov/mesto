@@ -39,6 +39,8 @@ const itemsToValidate = {
   errorClass: 'popup__error-message-container'
 };
 
+const defaultImgSrc = '/src/images/default-image.svg';
+
 export {
   editButton,
   addButton,
@@ -62,5 +64,6 @@ export {
   userId,
   deleteCardButton,
   editProfileFormSaveButton,
-  cardsLoadingIcon
+  cardsLoadingIcon,
+  defaultImgSrc
 }

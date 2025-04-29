@@ -26,8 +26,7 @@
 * адаптивная разработка; 
 * система контроля версий GIT; 
 * JS: fetch запросы с разными методами для получения, обновления, удаления информации, ООП, "живая" валидация форм; 
-* Webpack: проект собран с помощью Webpack, настроены Babel, autoprefixer, cssnano. 
- 
-Сайт размещен [здесь](https://konstantin-khoroshilov.github.io/mesto/).
+* Webpack: проект собран с помощью Webpack, настроены Babel, autoprefixer, cssnano. Только надо сделать build.
+
  
 Страница валидна.
