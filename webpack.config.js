@@ -4,12 +4,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin'); // подключил�
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');// подключаем к проекту mini-css-extract-plugin
 
 module.exports = {
-    entry: { main: './src/pages/index.js' },
-    output: {
-        path: path.resolve(__dirname, 'dist'),// переписали точку выхода, используя утилиту path
-        filename: 'main.js'
-    },
-    module: {
+  mode: 'development',
+  entry: { main: './src/pages/index.js' },
+  output: {
+    publicPath: '',
+    path: path.resolve(__dirname, 'dist'),// переписали точку выхода, используя утилиту path
+    filename: 'main.js'
+  },
+  module: {
     rules: [ // rules — это массив правил
       // добавим в него объект правил для бабеля
       {
@@ -31,22 +33,22 @@ module.exports = {
       {
         test: /\.html$/,
         loader: 'html-loader',
-        },
-        {
-          // применять это правило только к CSS-файлам
-            test: /\.css$/,
-          // при обработке этих файлов нужно использовать
-          // MiniCssExtractPlugin.loader и css-loader
-          loader: [
-            MiniCssExtractPlugin.loader,
-            {
-              loader: 'css-loader',
-              // добавьте объект options
-              options: { importLoaders: 1 }
-            },
-            'postcss-loader'
-          ]
-        },
+      },
+      {
+        // применять это правило только к CSS-файлам
+        test: /\.css$/,
+        // при обработке этих файлов нужно использовать
+        // MiniCssExtractPlugin.loader и css-loader
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            // добавьте объект options
+            options: { importLoaders: 1 }
+          },
+          'postcss-loader'
+        ]
+      },
     ]
   },
   plugins: [
@@ -54,5 +56,5 @@ module.exports = {
       template: './src/index.html' // путь к файлу index.html
     }),
     new MiniCssExtractPlugin(), // подключение плагина для объединения файлов
-  ] 
+  ]
 };
