@@ -1,4 +1,4 @@
-import loadErrorImage from '../images/load-error.gif'
+import loadErrorImage from '../images/load-error.gif';
 import './index.css';
 import Section from '../scripts/components/Section.js';
 import Card from '../scripts/components/Card.js';
@@ -133,7 +133,7 @@ const addNewCard = (cardData, needDelete, isLiked) => {
       likeHandler(needSetLike, cardId, likesContainer, likeButton);
     },
     //лайкнул ли пользователь текущую карточку ранее?
-    isLiked: isLiked
+    isLiked: isLiked,
   }
   //если id владельца карточки совпадает с id пользователя, добавить кнопку удаления и добавить обработчик этой кнопки
   //чтобы пользователь мог удалить свою карточку
