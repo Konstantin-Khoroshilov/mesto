@@ -7,4 +7,8 @@ export default class PopupWithImage extends Popup {
     popupCaption.textContent = cardTitle.textContent;
     super.open();
   }
+  close() {
+    popupImage.src = '';
+    super.close();
+  }
 }
