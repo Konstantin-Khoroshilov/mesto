@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mesto</title>
+<link href="main.css" rel="stylesheet"></head>
+<body class="body">
+  <div class="page">
+    <header class="header">
+      <img class="header__logo" alt="Место Россия" src="c2821b381952624d90e5c69c79bd1e58.svg">
+    </header>
+    <main class="content">
+      <section class="profile">
+        <div class="profile__person">
+          <div class="profile__avatar-container">
+            <img class="profile__avatar" src="4951545cda7274eea5e2e00ce017ccd7.gif" alt="аватар пользователя">
+            <div class="profile__avatar-edit-block">
+              <img src="6c7bf05444b9793fdf6e73a2dd202e7e.svg" alt="ручка" class="profile__avatar-edit-image">
+            </div>
+          </div>
+          <div class="profile__text-container">
+            <h1 class="profile__name">Загрузка...</h1>
+            <button type="button" class="profile__edit-button"></button>
+            <p class="profile__job">Загрузка...</p>
+          </div>
+        </div>
+        <button type="button" class="profile__add-button"></button>
+      </section>
+      <section class="cards">
+        <div class="cards__loading-icon"></div>
+        <ul class="cards__container"></ul>
+      </section>
+      <div class="popup popup_type_profile-editor">
+        <form class="popup__form" name="profile" novalidate>
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <label class="popup__form-field">
+            <input type="text" name="profile-name" class="popup__text-input" placeholder="Имя" required minlength="2" maxlength="40">
+            <span id="profile-name-error-container" class="popup__error-message-container"></span>
+          </label>
+          <label class="popup__form-field popup__form-field_extra-height">
+          <input type="text" name="profile-job" class="popup__text-input" placeholder="О себе" required minlength="2" maxlength="200">
+          <span id="profile-job-error-container" class="popup__error-message-container"></span>
+          </label>
+          <input type="submit" class="popup__save-button popup__save-button_type_profile-editor" value="Сохранить">
+          <button type="button" class="popup__close-button popup__close-button_type_profile-editor"></button>
+        </form>
+      </div>
+      <div class="popup popup_type_cards-inputter">
+        <form class="popup__form" name="cards-inputter" novalidate>
+          <h2 class="popup__title">Новое место</h2>
+          <label class="popup__form-field">
+          <input type="text" name="card-name" placeholder="Название" class="popup__text-input" required minlength="1" maxlength="30">
+          <span id="card-name-error-container" class="popup__error-message-container"></span>
+          </label>
+          <label class="popup__form-field popup__form-field_extra-height">
+          <input type="url" name="card-link" placeholder="Ссылка на картинку" class="popup__text-input"  required>
+          <span id="card-link-error-container" class="popup__error-message-container"></span>
+          </label>
+          <input type="submit" class="popup__save-button popup__save-button_type_cards-inputter popup__save-button_disabled" value="Создать" disabled>
+          <button type="button" class="popup__close-button popup__close-button_type_cards-inputter"></button>
+        </form>
+      </div>
+      <div class="popup popup_type_image-viewer">
+        <div class="popup__container">
+          <figure class="popup__figure">
+            <img class="popup__image" src="#" alt="">
+            <figcaption class="popup__caption"></figcaption>
+          </figure>
+          <button type="button" class="popup__close-button popup__close-button_type_image-viewer"></button>
+        </div>
+      </div>
+      <div class="popup popup_type_delete-confirmation">
+        <form class="popup__form" name="delete-confirmation">
+          <h2 class="popup__title">Вы уверены?</h2>
+          <input type="submit" class="popup__save-button popup__save-button_type_delete-confirmation" value="Да">
+          <button type="button" class="popup__close-button popup__close-button_type_delete-confirmation"></button>
+        </form>
+      </div>
+      <div class="popup popup_type_avatar-renew">
+        <form class="popup__form" name="avatar-renew" novalidate>
+          <h2 class="popup__title">Обновить аватар</h2>
+          <label class="popup__form-field">
+            <input type="url" name="avatar-link" placeholder="Ссылка на картинку" class="popup__text-input"  required>
+            <span id="avatar-link-error-container" class="popup__error-message-container"></span>
+          </label>
+          <input type="submit" class="popup__save-button popup__save-button_type_avatar-renew popup__save-button_disabled" value="Сохранить" disabled>
+          <button type="button" class="popup__close-button popup__close-button_type_avatar-renew"></button>
+        </form>
+      </div>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+    </footer>
+  </div>
+  <template class = "template">
+    <li>
+      <figure class="cards__card">
+        <img class="cards__image" src="#">
+        <figcaption class="cards__caption">
+          <span class="cards__heading"></span>
+          <div class="cards__like">
+            <button type="button" class="cards__like-button"></button>
+            <span class="cards__likes-number">0</span>
+          </div>
+        </figcaption>
+      </figure>
+    </li>
+  </template>
+  <template class="delete-button">
+    <button type="button" class="cards__delete-button"></button>
+  </template>
+<script src="main.js"></script></body>
+</html>
