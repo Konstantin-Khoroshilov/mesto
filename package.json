@@ -27,6 +27,6 @@
   },
   "dependencies": {
     "core-js": "^3.42.0",
-    "rimraf": "^3.0.2"
+    "rimraf": "^6.1.3"
   }
 }
